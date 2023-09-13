@@ -12,6 +12,7 @@ const urlsSkipAuth = [
 ];
 
 axiosInstance.interceptors.request.use(async (config) => {
+  // console.log("CONFIG INTERCEPTOR", config);
   if (config.url && urlsSkipAuth.includes(config.url)) {
     return config;
   }
@@ -31,7 +32,10 @@ axiosInstance.interceptors.request.use(async (config) => {
 });
 
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log("RESPONCE INTERCEPTOR", response);
+    return response;
+  },
   (error: AxiosError) => {
     const isLoggedIn = !!store.getState().auth.authData.accessToken;
 

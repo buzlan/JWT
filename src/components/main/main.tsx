@@ -14,6 +14,10 @@ export const Main = () => {
     (state: IRootState) => !!state.auth.authData.accessToken
   );
 
+  const accessToken = useSelector(
+    (state: IRootState) => state.auth.authData.accessToken
+  );
+
   const renderProfile = () => (
     <div>
       <div>Вы успeшно авторизовались, {profile}</div>
@@ -25,6 +29,7 @@ export const Main = () => {
   return (
     <div>
       <h1>Main</h1>
+      <p>ACCESS TOKEN {accessToken}</p>
       {isLoggedIn ? renderProfile() : <Login />}
     </div>
   );

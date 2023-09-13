@@ -18,6 +18,8 @@ function App() {
     (state: IRootState) => !!state.auth.authData.accessToken
   );
 
+  console.log("ISS LOGGED IN", isLoggedIn);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {

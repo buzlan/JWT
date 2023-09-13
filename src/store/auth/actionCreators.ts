@@ -19,16 +19,18 @@ export const loginUser =
   (data: ILoginRequest) =>
   async (dispatch: Dispatch<any>): Promise<void> => {
     try {
-      dispatch(loginStart());
+      dispatch(loginStart()); //activate loader
 
-      const res = await api.auth.login(data);
+      const res = await api.auth.login(data); //request /login
 
-      dispatch(loginSucess(res.data.accessToken));
-      dispatch(getProfile());
+      console.log("RESULT REQUEST", res);
+
+      dispatch(loginSucess(res.data.accessToken)); //add token to storage
+      dispatch(getProfile()); //request /profile
     } catch (e: any) {
       console.error(e);
 
-      dispatch(loginFailure(e.message));
+      dispatch(loginFailure(e.message)); //disable loading, add error to redux
     }
   };
 
@@ -40,6 +42,8 @@ export const logoutUser =
 
       dispatch(logoutSuccess());
 
+      console.log("HISTORY", history);
+
       history.push("/");
     } catch (e) {
       console.error(e);
@@ -50,11 +54,11 @@ export const getProfile =
   () =>
   async (dispatch: Dispatch<any>): Promise<void> => {
     try {
-      dispatch(loadProfileStart());
+      dispatch(loadProfileStart()); //set loader true
 
-      const res = await api.auth.getProfile();
+      const res = await api.auth.getProfile(); //get data from backend
 
-      dispatch(loadProfileSucess(res.data));
+      dispatch(loadProfileSucess(res.data)); //set data to redux
     } catch (e: any) {
       console.error(e);
 
